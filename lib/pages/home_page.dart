@@ -1,8 +1,15 @@
 import 'package:exemplo_listview/components/my_box.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class HomePage extends StatefulWidget {
+  HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final List<int> numbers = [];
 
   @override
   Widget build(BuildContext context) {
@@ -11,25 +18,22 @@ class HomePage extends StatelessWidget {
         title: const Text('Teste do ListView'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
-      body: ListView(children: const [
-        MyBox(1),
-        MyBox(2),
-        MyBox(3),
-        MyBox(4),
-        MyBox(5),
-        MyBox(6),
-        MyBox(7),
-        MyBox(8),
-        MyBox(9),
-        MyBox(10),
-        MyBox(11),
-        MyBox(12),
-        MyBox(13),
-        MyBox(14),
-        MyBox(15),
-      ]),
+      body: ListView.builder(
+        itemCount: numbers.length,
+        itemBuilder: (context, index) {
+          return MyBox(numbers[index]);
+        },
+      ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          setState(() {
+            if (numbers.isNotEmpty) {
+              numbers.add(numbers.last + 1);
+            } else {
+              numbers.add(0);
+            }
+          });
+        },
         child: const Icon(Icons.add),
       ),
     );
