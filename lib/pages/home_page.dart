@@ -1,4 +1,3 @@
-import 'package:exemplo_listview/components/my_box.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -9,7 +8,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<int> numbers = [];
+  final List<int> numbers = [1, 2, 3];
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +20,29 @@ class _HomePageState extends State<HomePage> {
       body: ListView.builder(
         itemCount: numbers.length,
         itemBuilder: (context, index) {
-          return MyBox(numbers[index]);
+          return Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Container(
+              padding: const EdgeInsets.all(20),
+              height: 100,
+              color: Colors.amber,
+              child: Center(
+                  child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(numbers[index].toString()),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        numbers.removeAt(index);
+                      });
+                    },
+                    child: const Icon(Icons.delete),
+                  )
+                ],
+              )),
+            ),
+          );
         },
       ),
       floatingActionButton: FloatingActionButton(
